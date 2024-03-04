@@ -22,7 +22,7 @@ func init() {
 
     emojis := strings.Split(m.Query, "+")
 if len(emojis) != 2 {
-    m.Reply("Example: .emojimix😅+🤔")
+    m.Reply("Example: .emojimix 😅+🤔")
     return
 }
 
