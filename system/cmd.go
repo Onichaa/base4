@@ -25,7 +25,7 @@ func Get(c *Nc, m *IMsg) {
     
     
 	var prefix string
-	pattern := regexp.MustCompile(`[?!.#]`)
+	pattern := regexp.MustCompile(`[?!.]`)
 	for _, f := range pattern.FindAllString(m.Prefix, -1) {
 		prefix = f
 	}
