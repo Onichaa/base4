@@ -33,3 +33,4 @@ jobs:
         
     - name: Test
       run: pm2 start 'go run main.go' --attach
+      
