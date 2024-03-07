@@ -12,7 +12,7 @@ import (
 
 func init() {
 	x.NewCmd(&x.ICmd{
-		Name:   "eghyhkjcdd",
+		Name:   "ai",
 		Cmd:    []string{"ai"},
 		Tags:   "ai",
      Prefix: true,
