@@ -63,7 +63,7 @@ struct opusfile_info opusfile_get_info(void *data, size_t size) {
 
 #else
 
-#pragma message "Warning: Building without opusfile. Sending voice messages is disabled."
+//#pragma message "Warning: Building without opusfile. Sending voice messages is disabled."
 struct opusfile_info opusfile_get_info(void *data, size_t size) {
   struct opusfile_info info = {.length_seconds = -1}; // use negative length to indicate error
   return info;
