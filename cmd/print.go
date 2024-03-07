@@ -6,6 +6,7 @@ import (
 
 	"github.com/amiruldev20/waSocket"
 	"github.com/fatih/color"
+  "time"
 )
 
 func init() {
@@ -13,6 +14,9 @@ func init() {
 	x.ListenerAdd(
 		func(c *waSocket.Client, m *x.IMsg) {
 
+      wita, _ := time.LoadLocation("Asia/Makassar")
+      currentTime := time.Now().In(wita)
+      
 			if m.IsGroup {
 				get, err := c.GetGroupInfo(m.From)
 
@@ -20,25 +24,19 @@ func init() {
 					fmt.Println(err)
 					return
 				}
-				color.Yellow("\n--------------------------------------------")
-				color.Cyan("CHAT: %s", m.From.String())
-				color.Cyan("GC NAME: %s", get.Name)
-				color.Yellow("JID: %s", m.Sender.ToNonAD())
-				color.Yellow("NAME: %s", m.PushName)
-				color.Green("TYPE: %s", m.Type)
-				color.HiGreen("ID: %s", m.ID)
-				color.Cyan("Device ID: %d", m.Sender.Device)
-				color.Green("Message:\n%s", m.Text)
-				color.Yellow("--------------------------------------------")
+        magenta := color.New(color.FgGreen).SprintFunc()
+        yellow := color.New(color.FgYellow).SprintFunc()
+        blue := color.New(color.FgBlue).SprintFunc()
+        cyan := color.New(color.FgCyan).SprintFunc()
+    
+        fmt.Println(yellow("[GROUP]"), magenta(currentTime.Format("15:04:05")), blue(m.Text), yellow("dari"), yellow(m.PushName), cyan("Di Group"), cyan(get.Name))
 			} else {
 				magenta := color.New(color.FgGreen).SprintFunc()
-				color.Yellow("\n--------------------------------------------")
-				fmt.Printf("%s\n", magenta(fmt.Sprintf("JID: %s", m.Sender.String())))
-				fmt.Printf("%s\n", magenta(fmt.Sprintf("NAME: %s", m.PushName)))
-				fmt.Printf("%s\n", magenta(fmt.Sprintf("TYPE: %s", m.Type)))
-				fmt.Printf("%s\n", magenta(fmt.Sprintf("MESSAGE:\n%s", m.Text)))
-				color.Yellow("--------------------------------------------")
-			}
+        yellow := color.New(color.FgYellow).SprintFunc()
+        blue := color.New(color.FgBlue).SprintFunc()
+     
+        fmt.Println(yellow("[PRIVATE]"), magenta(currentTime.Format("15:04:05")), blue(m.Text), yellow("dari"), yellow(m.PushName))	
+      }
 		},
 	)
 }
