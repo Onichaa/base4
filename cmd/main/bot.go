@@ -13,7 +13,7 @@ func init() {
     Prefix: false,
     Exec: func(sock *x.Nc, m *x.IMsg) {
 
-      m.Reply("y")
+      m.Reply("ya")
     },
   })
 }
