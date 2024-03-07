@@ -51,7 +51,7 @@ func menu(client *x.Nc, m *x.IMsg) {
 	sort.Sort(keys)
 
 	for _, key := range keys {
-		str += fmt.Sprintf("「 *%s MENU* 」\n", strings.ToUpper(key))
+		str += fmt.Sprintf("`「 %s MENU 」`\n", strings.ToUpper(key))
 		for _, e := range tags[key] {
 			var prefix string
 			if e.Prefix {
@@ -60,7 +60,7 @@ func menu(client *x.Nc, m *x.IMsg) {
 				prefix = ""
 			}
 			for _, nm := range e.Name {
-				str += fmt.Sprintf("ゝ %s%s\n", prefix, nm)
+				str += fmt.Sprintf("> ゝ %s%s\n", prefix, nm)
 			}
 		}
 		str += "\n"
