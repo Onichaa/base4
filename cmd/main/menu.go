@@ -5,6 +5,9 @@ import (
 	x "mywabot/system"
 	"sort"
 	"strings"
+
+  waProto "github.com/amiruldev20/waSocket/binary/proto"
+  "google.golang.org/protobuf/proto"
 )
 
 type item struct {
@@ -62,13 +65,26 @@ func menu(client *x.Nc, m *x.IMsg) {
 		}
 		str += "\n"
 	}
-	txt := str + "\n© Whatsapp Bot Hosting 2023"
-	m.Reply(txt)
+	txt := str + "\n© Powered by GoLang"
+	//m.Reply(txt)
+  
+  var isImage = waProto.ContextInfo_ExternalAdReplyInfo_IMAGE
+  client.SendText(m.From, strings.TrimSpace(txt), &waProto.ContextInfo{
+    ExternalAdReply: &waProto.ContextInfo_ExternalAdReplyInfo{
+      Title:                 proto.String("Bot WhatsApp 2023"),
+      Body:                  proto.String("Simple WhatsApp Bot"),
+      MediaType:             &isImage,
+      ThumbnailUrl:          proto.String("https://telegra.ph//file/46181dd650c4927a3578a.jpg"),
+      MediaUrl:              proto.String("https://wa.me/stickerpack/inc.dev"),
+      SourceUrl:             proto.String("https://id.pinterest.com/pin/6403624461768243/"),
+      ShowAdAttribution:     proto.Bool(true),
+      RenderLargerThumbnail: proto.Bool(true),
+    }})
 }
 
 func init() {
 	x.NewCmd(&x.ICmd{
-		Name:   "menu",
+		Name:   "(menu|makan|help)",
 		Cmd:    []string{"menu"},
 		Tags:   "main",
 		Prefix: true,
