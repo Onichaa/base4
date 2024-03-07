@@ -90,7 +90,7 @@ func init() {
 *𖦹 Region:* ` + tiktok.Result.Data.Region + `
 *𖦹 Judul:* ` + tiktok.Result.Data.Title + `
 *𖦹 Durasi:* ` + strconv.Itoa(tiktok.Result.Data.Duration) + `
-*𖦹 Info Musik:
+*𖦹 Info Musik:*
   *- Judul:* ` + tiktok.Result.Data.MusicInfo.Title + `
   *- Author:* ` + tiktok.Result.Data.MusicInfo.Author + `
 *𖦹 Jumlah Dilihat:* ` + strconv.Itoa(tiktok.Result.Data.PlayCount) + ` kali
