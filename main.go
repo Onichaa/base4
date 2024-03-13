@@ -9,6 +9,7 @@ import (
 	_ "mywabot/cmd/ai"
 	_ "mywabot/cmd/convert"
   _ "mywabot/cmd/download"
+	_ "mywabot/cmd/gambar"
 	_ "mywabot/cmd/group"
   _ "mywabot/cmd/info"
 	_ "mywabot/cmd/main"
