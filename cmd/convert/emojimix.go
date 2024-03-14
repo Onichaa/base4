@@ -8,6 +8,7 @@ import (
   "net/url"
   "net/http"
   "encoding/json"
+  "mywabot/config"
 )
 
 func init() {
@@ -22,7 +23,7 @@ func init() {
 
     emojis := strings.Split(m.Query, "+")
 if len(emojis) != 2 {
-    m.Reply("Example: .emojimix 😅+🤔")
+    m.Reply("Example: .emojimix😅+🤔")
     return
 }
 
@@ -70,9 +71,9 @@ if err != nil {
     }(),
   }, &x.MetadataSticker{
     Author:    m.PushName,
-    Pack:      "https://s.id/ryuubot",
+    Pack:      config.Pack,
     KeepScale: true,
-    Removebg:  "true",
+    Removebg:  true,
     Circle: func() bool {
       if m.Query == "-c" {
         return true
