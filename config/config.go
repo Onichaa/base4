@@ -11,6 +11,7 @@ var (
 	Self  = false
 	LolSite = "https://api.lolhuman.xyz/"
 	LolKey = "5f38494f3555283d0446abdf"
+	Pack = "Ryuu Bot"
 )
 
 func SetName(newName string) {
