@@ -2,6 +2,7 @@ package cmd
 
 import (
   x "mywabot/system"
+  "mywabot/config"
 
   "fmt"
   "time"
@@ -46,7 +47,7 @@ func init() {
           }(),
         }, &x.MetadataSticker{
           Author:    m.PushName,
-          Pack:      "https://s.id/ryuubot",
+          Pack:      config.Pack,
           KeepScale: true,
           Removebg:  true,
           Circle: func() bool {
