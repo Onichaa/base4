@@ -2,6 +2,7 @@ package cmd
 
 import (
   x "mywabot/system"
+  "mywabot/config"
 
   "fmt"
   "net/url"
@@ -14,6 +15,7 @@ func init() {
     Tags: "convert",
     Prefix: true,
     IsQuery: true,
+    ValueQ: ".ttp halooo",
     Exec: func(sock *x.Nc, m *x.IMsg) {
       m.React("⏱️")
 
@@ -37,9 +39,9 @@ func init() {
     }(),
   }, &x.MetadataSticker{
     Author:    m.PushName,
-    Pack:      "https://s.id/ryuubot",
+    Pack:      config.Pack,
     KeepScale: true,
-    Removebg:  "true",
+    Removebg:  true,
     Circle: func() bool {
       if m.Query == "-c" {
         return true
