@@ -3,18 +3,17 @@ package cmd
 import (
   x "mywabot/system"
 
-  //"fmt"
- // "os"
-    "math/rand"
-    "github.com/disintegration/imaging"
-    "github.com/fogleman/gg"
+ "mywabot/config"
+  "math/rand"
+  "github.com/disintegration/imaging"
+  "github.com/fogleman/gg"
   "github.com/amiruldev20/waSocket"
-    "net/http"
-    "strings"
-    "bytes"
-    "encoding/json"
-    "encoding/base64"
-    "strconv"
+  "net/http"
+  "strings"
+  "bytes"
+  "encoding/json"
+  "encoding/base64"
+  "strconv"
   
 )
 
@@ -129,7 +128,7 @@ func init() {
         }(),
       }, &x.MetadataSticker{
         Author:    m.PushName,
-        Pack:      "https://s.id/ryuubot",
+        Pack:      config.Pack,
         KeepScale: true,
         Removebg:  true,
         Circle: func() bool {
