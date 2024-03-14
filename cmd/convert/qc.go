@@ -8,6 +8,7 @@ import (
     "math/rand"
     "github.com/disintegration/imaging"
     "github.com/fogleman/gg"
+  "github.com/amiruldev20/waSocket"
     "net/http"
     "strings"
     "bytes"
@@ -57,9 +58,11 @@ func init() {
   
       teks := m.Query
       name := m.PushName
-      avatar := "https://telegra.ph/file/89c1638d9620584e6e140.png"
+     // avatar := "https://telegra.ph/file/89c1638d9620584e6e140.png"
       id := pickRandom([]int{0, 4, 5, 3, 2, 7, 5, 9, 8, 1, 6, 10, 9, 7, 5, 3, 1, 2, 4, 6, 8, 0, 10})
-      
+      pp, _ := sock.WA.GetProfilePictureInfo(m.Sender, &waSocket.GetProfilePictureParams{
+              Preview: true,
+      })
       
       jsonStr := `{
         "type": "quote",
@@ -76,7 +79,7 @@ func init() {
               "id": ` + strconv.Itoa(id) + `,
               "name": "` + name + `",
               "photo": {
-                "url": "` + avatar + `"
+                "url": "` + pp.URL + `"
               }
             },
             "text": "` + teks + `",
@@ -128,7 +131,7 @@ func init() {
         Author:    m.PushName,
         Pack:      "https://s.id/ryuubot",
         KeepScale: true,
-        Removebg:  "true",
+        Removebg:  true,
         Circle: func() bool {
           if m.Query == "-c" {
             return true
