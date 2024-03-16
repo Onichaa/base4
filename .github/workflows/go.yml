@@ -29,7 +29,9 @@ jobs:
         npm install -g pm2
 
     - name: Build
-      run: go build -v ./...
+      run: |
+        go get -u all
+        go build -v ./...
         
     - name: Test
       run: pm2 start "go run ." --watch "*.go" --watch "*/*.go" --watch "*/*/*.go" && pm2 log
