@@ -6,6 +6,7 @@ import (
   "fmt"
   "encoding/json"
   "regexp"
+  "strings"
 )
 
 func init() {
@@ -18,6 +19,11 @@ func init() {
     Exec: func(sock *x.Nc, m *x.IMsg) {
        m.React("⏱️")
 
+      if !strings.Contains(m.Query, "https://") {
+        m.Reply("Itu bukan link capcut")
+      return
+      }  
+      
       type Result struct {
         Code        int    `json:"code"`
         Title       string `json:"title"`
