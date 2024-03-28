@@ -2,22 +2,21 @@ package cmd
 
 import (
   x "mywabot/system"
+  
     "fmt"
     "net/http"
     "net/url"
-   // "time"
      "encoding/json"
     "io/ioutil"
     "strconv"
     "strings"
-    //"os"
     "regexp"
 )
 
 func init() {
   x.NewCmd(&x.ICmd{
-    Name:   "(tt|ttnowm|tiktoknowm|tiktok)",
-    Cmd:    []string{"tiktok"},
+    Name:   "(tt|ttnowm|tiktoknowm|tiktok|tiktokmp3|ttmp3)",
+    Cmd:    []string{"tiktok", "tiktoknowm", "tiktokmp3"},
     Tags:   "download",
     Prefix: true,
     IsQuery: true,
@@ -103,11 +102,13 @@ func init() {
         for _, i := range tiktok.Result.Data.Images {
           
           sock.SendImage(m.From, i, teks, *m)
-          // sock.SendAudio(m.From, tiktok.Result.Data.MusicInfo.Play, false, *m)    
+
         }   
-      } else {
+      } else if reg, _ := regexp.MatchString(`(tiktokmp3|ttmp3)`, m.Text); reg {    
+      sock.SendAudio(m.From, tiktok.Result.Data.MusicInfo.Play, false, *m) 
+        } else {
       sock.SendVideo(m.From,tiktok.Result.Data.Play, teks, *m)
-      }
+    }
       
       
       m.React("✅")
