@@ -1,12 +1,21 @@
 package cmd
 
 import (
-	"fmt"
 	x "mywabot/system"
+
+  "encoding/json"
+  "fmt"
+  "io/ioutil"
+  "net/http"
+  "net/url"
+  
+  /*
   "net/http"
      "encoding/json"
     "io/ioutil"
       "bytes"
+      "fmt"
+      */
 
 )
 
@@ -20,7 +29,36 @@ func init() {
 		ValueQ: ".ai siap kamu?",
 		Exec: func(sock *x.Nc, m *x.IMsg) {
 			m.React("⏱️")
-		
+
+      type ResponseData struct {
+        Data struct {
+          Response string `json:"response"`
+        } `json:"data"`
+      }
+
+
+      resp, err := http.Get("https://itzpire.site/ai/gpt-logic?q="+url.QueryEscape(m.Query)+"&logic=tes&realtime=true")
+      if err != nil {
+        fmt.Println("Error sending request:", err)
+        return
+      }
+      defer resp.Body.Close()
+
+      body, err := ioutil.ReadAll(resp.Body)
+      if err != nil {
+        fmt.Println("Error reading response body:", err)
+        return
+      }
+
+      var data ResponseData
+      err = json.Unmarshal(body, &data)
+      if err != nil {
+        fmt.Println("Error unmarshalling JSON:", err)
+        return
+      }
+       m.Reply(data.Data.Response)  
+
+      /*
       type Message struct {
          Role    string `json:"role"`
          Content string `json:"content"`
@@ -61,6 +99,7 @@ func init() {
             }
          m.Reply(res.Data)
          m.Reply("Code: "+"```"+res.Data2+"```")
+         */
       m.React("✅")
 		},
 	})
