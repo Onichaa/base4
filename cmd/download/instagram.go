@@ -8,6 +8,9 @@ import (
   "net/url"
   "fmt"
   "strings"
+  "regexp"
+  "os"
+  "io/ioutil"
 
   //"io/ioutil"
 //  "os"
@@ -17,8 +20,8 @@ import (
 
 func init() {
   x.NewCmd(&x.ICmd{
-    Name:   "(ig|instagram|igdown|igdl)",
-    Cmd:    []string{"instagram"},
+    Name:   "(ig|instagram|igdown|igdl|igmp3|instagrammp3)",
+    Cmd:    []string{"instagram", "instagrammp3"},
     Tags:   "download",
     Prefix: true,
     IsQuery: true,
@@ -77,13 +80,43 @@ func init() {
               m.Reply("No Content-Type")
             }
 
-            if strings.Contains(mime, "video") {
+          if reg, _ := regexp.MatchString(`(igmp3|instagrammp3)`, m.Text); reg {    
+            
+            bytes, err := x.ToByte(result.URL)
+            if err != nil {
+               fmt.Println("Error:", err)
+              return
+            }
+            
+            mp3 := "./tmp/" + m.ID + ".mp3"
+            whatsappAudio, err := x.ToAudio(bytes, "mp4")
+              if err != nil {
+                fmt.Println("Error:", err)
+                return
+              }
+
+              err = ioutil.WriteFile(mp3, whatsappAudio, 0644)
+              if err != nil {
+                fmt.Println("Error:", err)
+                return
+              }
+
+            url, err := x.Upload(mp3)
+            if err != nil {
+                fmt.Println("Error:", err)
+                return
+            }
+
+            sock.SendAudio(m.From, url, false, *m)
+
+            os.Remove(mp3)
+              } else if strings.Contains(mime, "video") {
               sock.SendVideo(m.From, result.URL, "", *m)
             } else if strings.Contains(mime, "application/octet-stream") {
                sock.SendVideo(m.From, result.URL, "", *m)
               } else {
                sock.SendImage(m.From, result.URL, "", *m)
-            }
+            }  
           
         }
       } else {
